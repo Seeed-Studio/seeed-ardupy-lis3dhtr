@@ -1,0 +1,113 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Author: PowerfulCat (x4495@outlook.com) & Hongtai.liu (lht856@foxmail.com)
+ *
+ * Copyright (C) 2020  Seeed Technology Co.,Ltd.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+#include <Arduino.h>
+#include <Wire.h>
+#include "Seeed_Arduino_LIS3DHTR/src/LIS3DHTR.h"
+
+extern "C"
+{
+#include "py/objtype.h"
+#include "shared-bindings/util.h"
+}
+
+#define lis (*(LIS3DHTR<TwoWire> *)self->module)
+void *operator new(size_t, void *);
+
+extern "C"
+{
+    void common_hal_lis3dhtr_construct(abstract_module_t *self, uint8_t addr)
+    {
+        self->module = new (m_new_obj(LIS3DHTR<TwoWire>)) LIS3DHTR<TwoWire>;
+#ifdef WIO_TERMINAL
+        lis.begin(Wire1, addr);
+#else
+        lis.begin(Wire, addr);
+#endif
+        lis.setOutputDataRate(LIS3DHTR_DATARATE_50HZ); //Data output rate
+        lis.setFullScaleRange(LIS3DHTR_RANGE_2G);      //Scale range set to 2g
+    }
+    void common_hal_lis3dhtr_deinit(abstract_module_t *self)
+    {
+        lis.~LIS3DHTR();
+    }
+    bool common_hal_lis3dhtr_available(abstract_module_t *self)
+    {
+        return lis.available();
+    }
+    float common_hal_lis3dhtr_getAccelerationX(abstract_module_t *self)
+    {
+        return lis.getAccelerationX();
+    }
+    float common_hal_lis3dhtr_getAccelerationY(abstract_module_t *self)
+    {
+        return lis.getAccelerationY();
+    }
+    float common_hal_lis3dhtr_getAccelerationZ(abstract_module_t *self)
+    {
+        return lis.getAccelerationZ();
+    }
+    void common_hal_lis3dhtr_setPowerMode(abstract_module_t *self, uint8_t mode)
+    {
+        lis.setPowerMode((power_type_t)mode);
+    }
+    void common_hal_lis3dhtr_setFullScaleRange(abstract_module_t *self, uint8_t range)
+    {
+        lis.setFullScaleRange((scale_type_t)range);
+    }
+    void common_hal_lis3dhtr_setOutputDataRate(abstract_module_t *self, uint8_t odr)
+    {
+        lis.setOutputDataRate((odr_type_t)odr);
+    }
+    void common_hal_lis3dhtr_setHighSolution(abstract_module_t *self, bool enable)
+    {
+        lis.setHighSolution(enable);
+    }
+    void common_hal_lis3dhtr_openTemp(abstract_module_t *self)
+    {
+        lis.openTemp();
+    }
+    void common_hal_lis3dhtr_closeTemp(abstract_module_t *self)
+    {
+        lis.closeTemp();
+    }
+    uint16_t common_hal_lis3dhtr_readbitADC1(abstract_module_t *self)
+    {
+        return lis.readbitADC1();
+    }
+    uint16_t common_hal_lis3dhtr_readbitADC2(abstract_module_t *self)
+    {
+        return lis.readbitADC2();
+    }
+    uint16_t common_hal_lis3dhtr_readbitADC3(abstract_module_t *self)
+    {
+        return lis.readbitADC3();
+    }
+    int16_t common_hal_lis3dhtr_getTemperature(abstract_module_t *self)
+    {
+        return lis.getTemperature();
+    }
+}
