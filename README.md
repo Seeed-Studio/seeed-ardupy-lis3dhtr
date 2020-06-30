@@ -21,9 +21,10 @@ aip flash [Ardupy Bin PATH]
 For more examples of using AIP, please refer to [AIP](https://github.com/Seeed-Studio/ardupy-aip).
 ## Usage
 ```python
+from machine import Map
 from arduino import grove_lis3dhtr
 lis = grove_lis3dhtr()
-
+#lis = grove_lis3dhtr(Map.WIRE1)  #Specify wire 
 while True:
     if lis.avaiable():
         print("X: ", lis.x)
