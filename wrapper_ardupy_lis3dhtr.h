@@ -12,7 +12,7 @@ extern "C"
 #endif
 #include "py/objtype.h"
 #include "shared-bindings/util.h"
-    void common_hal_lis3dhtr_construct(abstract_module_t *self, uint8_t addr);
+    void common_hal_lis3dhtr_construct(abstract_module_t *self, size_t n_args, const mp_obj_t *args);
     void common_hal_lis3dhtr_deinit(abstract_module_t *self);
     bool common_hal_lis3dhtr_available(abstract_module_t *self);
     float common_hal_lis3dhtr_getAccelerationX(abstract_module_t *self);

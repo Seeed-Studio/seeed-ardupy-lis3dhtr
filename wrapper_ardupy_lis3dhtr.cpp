@@ -27,26 +27,36 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "Seeed_Arduino_LIS3DHTR/src/LIS3DHTR.h"
-
 extern "C"
 {
 #include "py/objtype.h"
+#include "py/obj.h"
 #include "shared-bindings/util.h"
+#include "shared-bindings/arduino_util.h"
 }
-
 #define lis (*(LIS3DHTR<TwoWire> *)self->module)
 void *operator new(size_t, void *);
 
 extern "C"
 {
-    void common_hal_lis3dhtr_construct(abstract_module_t *self, uint8_t addr)
+    void common_hal_lis3dhtr_construct(abstract_module_t *self, size_t n_args, const mp_obj_t *args)
     {
+      
         self->module = new (m_new_obj(LIS3DHTR<TwoWire>)) LIS3DHTR<TwoWire>;
-#ifdef WIO_TERMINAL
-        lis.begin(Wire1, addr);
-#else
-        lis.begin(Wire, addr);
-#endif
+        TwoWire *_wire = &Wire;
+        uint8_t addr = LIS3DHTR_DEFAULT_ADDRESS;
+        #ifdef ARDUPY_GET_WIRE
+        if(n_args >= 1)
+        {
+            int32_t wire_num = mp_obj_get_int(args[0]);
+            _wire = ardupy_get_wire(wire_num); 
+        }
+        if(n_args == 2)
+        {
+            addr = mp_obj_get_int(args[1]);
+        }
+        #endif
+        lis.begin(*_wire, addr);
         lis.setOutputDataRate(LIS3DHTR_DATARATE_50HZ); //Data output rate
         lis.setFullScaleRange(LIS3DHTR_RANGE_2G);      //Scale range set to 2g
     }

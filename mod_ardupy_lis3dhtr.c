@@ -37,17 +37,8 @@ extern const mp_obj_type_t grove_lis3dhtr_type;
 m_generic_make(lis3dhtr)
 {
     abstract_module_t *self = new_abstruct_module(type);
-    mp_arg_check_num(n_args, n_kw, 0, 1, true);
-    uint8_t addr = LIS3DHTR_DEFAULT_ADDRESS;
-    if (n_args == 1)
-    {
-        addr = mp_obj_get_int(args[0]);
-        if (addr != LIS3DHTR_DEFAULT_ADDRESS && addr != LIS3DHTR_ADDRESS_UPDATED)
-        {
-            mp_raise_ValueError("only 0x18 and 0x19 support!");
-        }
-    }
-    common_hal_lis3dhtr_construct(self, addr);
+    mp_arg_check_num(n_args, n_kw, 0, 2, true);
+    common_hal_lis3dhtr_construct(self, n_args, args);
     return self;
 }
 
