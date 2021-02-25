@@ -57,6 +57,7 @@ extern "C"
         }
         #endif
         lis.begin(*_wire, addr);
+        _wire->setClock(400000);
         lis.setOutputDataRate(LIS3DHTR_DATARATE_50HZ); //Data output rate
         lis.setFullScaleRange(LIS3DHTR_RANGE_2G);      //Scale range set to 2g
     }
@@ -67,6 +68,10 @@ extern "C"
     bool common_hal_lis3dhtr_available(abstract_module_t *self)
     {
         return lis.available();
+    }
+    void common_hal_lis3dhtr_getAcceleration(abstract_module_t *self, float *x, float *y, float *z)
+    {
+        lis.getAcceleration(x,y,z);
     }
     float common_hal_lis3dhtr_getAccelerationX(abstract_module_t *self)
     {
@@ -82,14 +87,17 @@ extern "C"
     }
     void common_hal_lis3dhtr_setPowerMode(abstract_module_t *self, uint8_t mode)
     {
+        mode=mode<<3;
         lis.setPowerMode((power_type_t)mode);
     }
     void common_hal_lis3dhtr_setFullScaleRange(abstract_module_t *self, uint8_t range)
     {
+        range=range<<4;
         lis.setFullScaleRange((scale_type_t)range);
     }
     void common_hal_lis3dhtr_setOutputDataRate(abstract_module_t *self, uint8_t odr)
     {
+        odr=odr<<4;
         lis.setOutputDataRate((odr_type_t)odr);
     }
     void common_hal_lis3dhtr_setHighSolution(abstract_module_t *self, bool enable)

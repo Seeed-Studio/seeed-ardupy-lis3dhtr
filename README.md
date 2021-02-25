@@ -54,12 +54,13 @@ lis.setFullScaleRange(3) # LIS3DHTR_RANGE_16G
 ```
 - **setOutputDataRate(*rate\<uint8_t\>*) : void** - set output data rate
 ```python
-lis.setOutputDataRate(0) # LIS3DHTR_DATARATE_POWERDOWN 
+lis.setOutputDataRate(0) # LIS3DHTR_DATARATE_POWERDOWN
+lis.setOutputDataRate(1) # LIS3DHTR_DATARATE_1HZ 
 lis.setOutputDataRate(2) # LIS3DHTR_DATARATE_10HZ
 lis.setOutputDataRate(3) # LIS3DHTR_DATARATE_25HZ
 lis.setOutputDataRate(4) # LIS3DHTR_DATARATE_50HZ
 lis.setOutputDataRate(5) # LIS3DHTR_DATARATE_100HZ
-lis.setOutputDataRate(6) # LIS3DHTR_DATARATE_400HZ
+lis.setOutputDataRate(6) # LIS3DHTR_DATARATE_200HZ
 lis.setOutputDataRate(7) # LIS3DHTR_DATARATE_400HZ
 lis.setOutputDataRate(8) # LIS3DHTR_DATARATE_1_6KH
 lis.setOutputDataRate(9) # LIS3DHTR_DATARATE_5KHZ
@@ -76,6 +77,10 @@ lis.openTemp()
 - **closeTemp(*void*) : void** - close temperature enable
 ```python
 lis.closeTemp()
+```
+- **getAcceleration(*void*) : list(float)** - get acceleration x, y and z
+```python
+x,y,z = lis.getAcceleration()
 ```
 - **x : float** - get acceleration z
 ```python
