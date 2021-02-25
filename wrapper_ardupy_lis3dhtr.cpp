@@ -82,14 +82,17 @@ extern "C"
     }
     void common_hal_lis3dhtr_setPowerMode(abstract_module_t *self, uint8_t mode)
     {
+        mode=mode<<3;
         lis.setPowerMode((power_type_t)mode);
     }
     void common_hal_lis3dhtr_setFullScaleRange(abstract_module_t *self, uint8_t range)
     {
+        range=range<<4;
         lis.setFullScaleRange((scale_type_t)range);
     }
     void common_hal_lis3dhtr_setOutputDataRate(abstract_module_t *self, uint8_t odr)
     {
+        odr=odr<<4;
         lis.setOutputDataRate((odr_type_t)odr);
     }
     void common_hal_lis3dhtr_setHighSolution(abstract_module_t *self, bool enable)
