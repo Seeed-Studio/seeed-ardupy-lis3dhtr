@@ -57,6 +57,7 @@ extern "C"
         }
         #endif
         lis.begin(*_wire, addr);
+        _wire->setClock(400000);
         lis.setOutputDataRate(LIS3DHTR_DATARATE_50HZ); //Data output rate
         lis.setFullScaleRange(LIS3DHTR_RANGE_2G);      //Scale range set to 2g
     }
