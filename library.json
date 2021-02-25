@@ -1,7 +1,7 @@
 {
     "author" : "Hongtai.Liu <lht856@foxmail.com>",
     "name": "Seeed ArduPy LIS3DHTR",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/Seeed-Studio/seeed-ardupy-lis3dhtr.git"
