@@ -78,6 +78,10 @@ lis.openTemp()
 ```python
 lis.closeTemp()
 ```
+- **getAcceleration(*void*) : list(float)** - get acceleration x, y and z
+```python
+x,y,z = lis.getAcceleration()
+```
 - **x : float** - get acceleration z
 ```python
 x = lis.x

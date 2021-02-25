@@ -103,6 +103,16 @@ mp_obj_t lis3dhtr_setHighSolution(size_t n_args, const mp_obj_t *pos_args, mp_ma
 }
 MP_DEFINE_CONST_FUN_OBJ_KW(lis3dhtr_setHighSolution_obj, 1, lis3dhtr_setHighSolution);
 
+mp_obj_t lis3dhtr_getAcceleration(mp_obj_t self_in)
+{
+    float x,y,z;
+    common_hal_lis3dhtr_getAcceleration((abstract_module_t *)self_in,&x,&y,&z);
+    mp_obj_t list[3]={mp_obj_new_float(x),mp_obj_new_float(y),mp_obj_new_float(z)};
+    return mp_obj_new_list(3,list);
+}
+
+MP_DEFINE_CONST_FUN_OBJ_1(lis3dhtr_getAcceleration_obj, lis3dhtr_getAcceleration);
+
 void lis3dhtr_obj_attr(mp_obj_t self_in, qstr attr, mp_obj_t *dest)
 {
     abstract_module_t *self = (abstract_module_t *)self_in;
@@ -167,6 +177,7 @@ const mp_rom_map_elem_t lis3dhtr_locals_dict_table[] = {
     {MP_ROM_QSTR(MP_QSTR_setFullScaleRange), MP_ROM_PTR(&lis3dhtr_setFullScaleRange_obj)},
     {MP_ROM_QSTR(MP_QSTR_setOutputDataRate), MP_ROM_PTR(&lis3dhtr_setOutputDataRate_obj)},
     {MP_ROM_QSTR(MP_QSTR_setHighSolution), MP_ROM_PTR(&lis3dhtr_setHighSolution_obj)},
+    {MP_ROM_QSTR(MP_QSTR_getAcceleration), MP_ROM_PTR(&lis3dhtr_getAcceleration_obj)},
     {MP_ROM_QSTR(MP_QSTR_openTemp), MP_ROM_PTR(&lis3dhtr_openTemp_obj)},
     {MP_ROM_QSTR(MP_QSTR_closeTemp), MP_ROM_PTR(&lis3dhtr_closeTemp_obj)},
 };

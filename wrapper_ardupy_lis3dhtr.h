@@ -15,6 +15,7 @@ extern "C"
     void common_hal_lis3dhtr_construct(abstract_module_t *self, size_t n_args, const mp_obj_t *args);
     void common_hal_lis3dhtr_deinit(abstract_module_t *self);
     bool common_hal_lis3dhtr_available(abstract_module_t *self);
+    void common_hal_lis3dhtr_getAcceleration(abstract_module_t *self, float *x, float *y, float *z);
     float common_hal_lis3dhtr_getAccelerationX(abstract_module_t *self);
     float common_hal_lis3dhtr_getAccelerationY(abstract_module_t *self);
     float common_hal_lis3dhtr_getAccelerationZ(abstract_module_t *self);

@@ -68,6 +68,10 @@ extern "C"
     {
         return lis.available();
     }
+    void common_hal_lis3dhtr_getAcceleration(abstract_module_t *self, float *x, float *y, float *z)
+    {
+        lis.getAcceleration(x,y,z);
+    }
     float common_hal_lis3dhtr_getAccelerationX(abstract_module_t *self)
     {
         return lis.getAccelerationX();
